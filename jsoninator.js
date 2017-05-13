@@ -16,13 +16,24 @@ const stringify = function(obj) {
     if (!obj[0]) {
       return '[]';
     }
-    return '[' + _.reduce(obj, (a, b) => a + ',' + stringify(b)) + ']';
+    else {
+      let valArr = [];
+      obj.forEach(item => valArr.push(stringify(item)));
+      return '[' + valArr + ']';
+    }
   }
   else {
-    return '{' + _.reduce(obj, (a, item, key) => a + ',' + `${key}:${stringify(item)}`) + '}';
+    if (_.isEmpty(obj))
+      return '{}';
+    else {
+      let valArr = [];
+      _.each(obj, (val, key) => valArr.push(stringify(key) + ':' + stringify(val)));
+      return '{' + valArr + '}';
+    }
   }
 
 };
+
 
 module.exports = {
   stringify: stringify
